@@ -1,0 +1,56 @@
+<div class="card-item" (click)="onCardClick()" [attr.aria-label]="'Ver detalle de ' + card.name">
+  <div class="card-image-wrapper">
+    <img 
+      [src]="card.card_images[0]?.image_url_small || card.card_images[0]?.image_url" 
+      [alt]="card.name"
+      loading="lazy"
+      class="card-image"
+    />
+    <div class="card-badge" [ngClass]="{
+      'badge-spell': isSpell,
+      'badge-trap': isTrap,
+      'badge-monster': isMonster
+    }">
+      {{ card.type }}
+    </div>
+  </div>
+
+  <div class="card-body">
+    <h3 class="card-title" [title]="card.name">{{ card.name }}</h3>
+
+    <!-- Atributo y Nivel/Rango si están disponibles -->
+    <div class="card-meta" *ngIf="card.attribute || card.level !== undefined">
+      <span class="meta-pill attribute-pill" *ngIf="card.attribute">
+        <span class="pill-dot"></span> {{ card.attribute }}
+      </span>
+      <span class="meta-pill level-pill" *ngIf="card.level !== undefined">
+        ⭐ Nivel {{ card.level }}
+      </span>
+    </div>
+
+    <!-- ATK y DEF si están disponibles -->
+    <div class="card-stats" *ngIf="card.atk !== undefined || card.def !== undefined">
+      <div class="stat atk" *ngIf="card.atk !== undefined">
+        <span class="stat-label">ATK</span>
+        <span class="stat-value">{{ card.atk }}</span>
+      </div>
+      <div class="stat def" *ngIf="card.def !== undefined">
+        <span class="stat-label">DEF</span>
+        <span class="stat-value">{{ card.def }}</span>
+      </div>
+    </div>
+
+    <!-- Indicador si es carta mágica / trampa sin ATK/DEF -->
+    <div class="non-monster-info" *ngIf="card.atk === undefined && card.def === undefined">
+      <span class="race-tag" *ngIf="card.race">Subtipo: {{ card.race }}</span>
+      <span class="archetype-tag" *ngIf="card.archetype">Arquetipo: {{ card.archetype }}</span>
+    </div>
+
+    <button type="button" class="view-detail-btn" (click)="$event.stopPropagation(); onCardClick()">
+      <span>Ver detalle</span>
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M5 12h14M12 5l7 7-7 7"/>
+      </svg>
+    </button>
+  </div>
+</div>

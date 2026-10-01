@@ -1,59 +1,65 @@
-# BlueEyesCardExplorer
+# 🐉 Blue-Eyes Card Explorer
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 22.2.0.
+Aplicación web desarrollada en **Angular** que consume la API pública oficial de **YGOPRODeck** para la búsqueda, exploración y visualización de cartas de Yu-Gi-Oh!, con una sección especializada dedicada al arquetipo legendario **Blue-Eyes**.
 
-## Development server
+---
 
-To start a local development server, run:
+## 📋 Información de la Entrega
+- **Materia:** Aplicaciones Web
+- **Carrera:** Ingeniería en Desarrollo y Gestión de Software
+- **Evaluadora:** Mtra. Michelle Quintal
+- **Valor:** 100 puntos
+- **Integrantes del Equipo:**
+  - Integrante 1: [Nombre y Apellidos]
+  - Integrante 2: [Nombre y Apellidos]
 
+---
+
+## 🚀 Requerimientos Implementados
+
+| Requisito | Descripción | Puntos | Estado |
+|---|---|:---:|:---:|
+| **RF-01** | **Buscador de cartas:** Permite introducir nombre completo o parcial con debounceTime, distinctUntilChanged y switchMap en RxJS | 20 pts |  Completado |
+| **RF-02** | **Resultados en tarjetas:** Componente reutilizable (`CardComponent`) que maneja imagen, nombre, tipo, atributo, nivel, ATK y DEF, tolerando cartas sin dichas propiedades (magias/trampas) | 15 pts |  Completado |
+| **RF-03** | **Detalle de carta:** Modal y ruta (`/card/:id`) con imagen, nombre, descripción completa, estadísticas, precios y arquetipo | 15 pts |  Completado |
+| **RF-04** | **Blue-Eyes Collection:** Sección dedicada que consulta la API con `?archetype=Blue-Eyes` y muestra las cartas con tarjetas reutilizables | 20 pts |  Completado |
+| **RF-05** | **Expansiones de Blue-Eyes:** Procesa automáticamente las impresiones (`card_sets`), elimina duplicados mediante `Set`, y muestra tabla con Expansión, Código, Rareza y Precio | 15 pts |  Completado |
+| **RF-06** | **Filtro de expansión:** Selector dinámico que filtra las cartas Blue-Eyes según la expansión seleccionada en tiempo real | 10 pts |  Completado |
+| **RF-07** | **Manejo de estados:** Estados visuales en UI para *Loading*, *Success*, *Empty* y *Error* (con reintento) | 5 pts |  Completado |
+| **Total** | | **100 pts** | **100% Cumplido** |
+
+---
+
+## 🛠️ Requisitos Técnicos y Restricciones
+-  **TypeScript Estricto:** Prohibición del uso de `any` respetada al 100% mediante interfaces en `src/app/models/card.model.ts`.
+-  **Servicio Centralizado:** Comunicación con YGOPRODeck a través de `YugiohService`.
+-  **Sin JSONs locales:** Toda la información se consulta dinámicamente desde los endpoints de YGOPRODeck.
+-  **Separación de componentes:** Arquitectura desacoplada en `CardComponent`, `CardDetailComponent`, `SearchComponent` y `BlueEyesComponent`.
+
+---
+
+## 💻 Instrucciones de Ejecución
+
+### 1. Instalar dependencias (si es primera vez)
 ```bash
+npm install
+```
+
+### 2. Iniciar el servidor de desarrollo
+```bash
+npm start
+# o también:
 ng serve
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+La aplicación estará disponible en [http://localhost:4200/](http://localhost:4200/).
 
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
-
+### 3. Compilación para producción
 ```bash
-ng generate component component-name
+npm run build
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+---
 
-```bash
-ng generate --help
-```
-
-## Building
-
-To build the project run:
-
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+## 📖 Guía para la Defensa Oral
+Consulta el archivo [GUIA_DEFENSA_EXAMEN.md](./GUIA_DEFENSA_EXAMEN.md) para estudiar y responder con soltura las preguntas técnicas del examen (operadores RxJS, algoritmos de conjuntos únicos, manejo de errores, etc.).

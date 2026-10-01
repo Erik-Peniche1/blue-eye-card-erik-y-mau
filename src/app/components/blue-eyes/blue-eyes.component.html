@@ -1,0 +1,126 @@
+<div class="blue-eyes-page-container">
+  
+  <!-- HERO / ENCABEZADO DE LA SECCIÓN -->
+  <section class="blue-eyes-hero">
+    <div class="dragon-badge">🐉 Arquetipo Legendario • RF-04</div>
+    <h1 class="hero-title">Blue-Eyes Collection</h1>
+    <p class="hero-subtitle">
+      Explora todas las cartas pertenecientes al mítico arquetipo <strong>Blue-Eyes</strong> consumidas en tiempo real desde la API de YGOPRODeck, con extracción automática de impresiones y filtrado por expansión.
+    </p>
+
+    <!-- ESTADÍSTICAS EN VIVO -->
+    <div class="stats-row" *ngIf="state === 'success'">
+      <div class="stat-pill">
+        <span class="stat-num">{{ allCards.length }}</span>
+        <span class="stat-lbl">Cartas en colección</span>
+      </div>
+      <div class="stat-pill">
+        <span class="stat-num">{{ uniqueExpansions.length }}</span>
+        <span class="stat-lbl">Expansiones registradas</span>
+      </div>
+      <div class="stat-pill highlight" *ngIf="selectedExpansion !== 'ALL'">
+        <span class="stat-num">{{ filteredCards.length }}</span>
+        <span class="stat-lbl">En expansión activa</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- BARRA DE FILTRADO DINÁMICO POR EXPANSIÓN (RF-06) -->
+  <section class="filter-section" *ngIf="state === 'success' || (state !== 'loading' && allCards.length > 0)">
+    <div class="filter-card">
+      <div class="filter-header">
+        <div class="filter-label-group">
+          <span class="filter-icon">📦</span>
+          <div>
+            <h3 class="filter-title">Filtrar por Expansión (Set)</h3>
+            <p class="filter-desc">Generado dinámicamente sin duplicados desde las impresiones de la API (RF-05 & RF-06)</p>
+          </div>
+        </div>
+
+        <button 
+          *ngIf="selectedExpansion !== 'ALL'" 
+          type="button" 
+          class="reset-filter-btn" 
+          (click)="resetFilter()"
+        >
+          Limpiar filtro (Mostrar todas)
+        </button>
+      </div>
+
+      <div class="select-wrapper">
+        <select 
+          class="expansion-select"
+          [ngModel]="selectedExpansion" 
+          (ngModelChange)="onExpansionChange($event)"
+          aria-label="Seleccionar expansión de Blue-Eyes"
+        >
+          <option value="ALL">🌟 Todas las expansiones ({{ allCards.length }} cartas)</option>
+          <option *ngFor="let set of uniqueExpansions" [value]="set">
+            {{ set }}
+          </option>
+        </select>
+      </div>
+
+      <div class="active-filter-indicator" *ngIf="selectedExpansion !== 'ALL'">
+        Mostrando cartas con impresiones en: <strong>"{{ selectedExpansion }}"</strong>
+        <span class="tag-counter">({{ filteredCards.length }} coincidencia{{ filteredCards.length === 1 ? '' : 's' }})</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTENEDOR DE ESTADOS Y RESULTADOS (RF-07) -->
+  <section class="collection-content">
+
+    <!-- ESTADO: LOADING -->
+    <div class="state-box" *ngIf="state === 'loading'">
+      <div class="loading-spinner"></div>
+      <h3 class="state-heading">Consultando la Blue-Eyes Collection...</h3>
+      <p class="state-sub">Recuperando cartas del arquetipo y procesando expansiones únicas desde la API.</p>
+    </div>
+
+    <!-- ESTADO: ERROR -->
+    <div class="state-box state-error" *ngIf="state === 'error'">
+      <div class="state-icon">⚠️</div>
+      <h3 class="state-heading">Error al cargar la colección</h3>
+      <p class="state-sub">{{ errorMessage }}</p>
+      <button type="button" class="action-btn" (click)="loadBlueEyesCollection()">Reintentar conexión</button>
+    </div>
+
+    <!-- ESTADO: EMPTY -->
+    <div class="state-box state-empty" *ngIf="state === 'empty'">
+      <div class="state-icon">🐉</div>
+      <h3 class="state-heading">No se encontraron cartas</h3>
+      <p class="state-sub">La consulta al arquetipo Blue-Eyes no devolvió resultados en este momento.</p>
+      <button type="button" class="action-btn" (click)="loadBlueEyesCollection()">Actualizar</button>
+    </div>
+
+    <!-- ESTADO: SUCCESS -->
+    <div class="results-container" *ngIf="state === 'success'">
+      
+      <!-- CUANDO EL FILTRO NO DEJA RESULTADOS -->
+      <div class="no-filter-results" *ngIf="filteredCards.length === 0">
+        <p>No hay cartas en la colección que correspondan a la expansión seleccionada.</p>
+        <button type="button" class="reset-filter-btn" (click)="resetFilter()">Ver todas las cartas</button>
+      </div>
+
+      <!-- GRID DE CARTAS REUTILIZANDO CardComponent (RF-04) -->
+      <div class="cards-grid" *ngIf="filteredCards.length > 0">
+        <app-card 
+          *ngFor="let card of filteredCards" 
+          [card]="card" 
+          (selectCard)="onSelectCard($event)"
+        ></app-card>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- MODAL DE DETALLE (RF-03 & RF-05) -->
+  <app-card-detail
+    *ngIf="selectedCard"
+    [card]="selectedCard"
+    [isModal]="true"
+    (close)="closeDetail()"
+  ></app-card-detail>
+
+</div>

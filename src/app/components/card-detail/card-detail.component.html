@@ -1,0 +1,157 @@
+<div [ngClass]="{'modal-overlay': isModal, 'page-wrapper': !isModal}" (click)="isModal && onClose()">
+  <div class="detail-container" (click)="$event.stopPropagation()">
+    
+    <!-- HEADER -->
+    <div class="detail-header">
+      <div class="header-title-box">
+        <span class="badge" [ngClass]="{
+          'badge-spell': isSpell,
+          'badge-trap': isTrap,
+          'badge-monster': isMonster
+        }">{{ card?.type || 'Carta' }}</span>
+        <h2 class="card-name">{{ card?.name || 'Detalles de la Carta' }}</h2>
+      </div>
+      <button type="button" class="close-btn" (click)="onClose()" aria-label="Cerrar detalle">
+        ✕
+      </button>
+    </div>
+
+    <!-- ESTADO: LOADING -->
+    <div class="state-container" *ngIf="state === 'loading'">
+      <div class="spinner"></div>
+      <p class="state-text">Cargando información de la carta...</p>
+    </div>
+
+    <!-- ESTADO: ERROR -->
+    <div class="state-container state-error" *ngIf="state === 'error'">
+      <div class="state-icon">⚠️</div>
+      <h3 class="state-title">Error al consultar la carta</h3>
+      <p class="state-text">{{ errorMessage }}</p>
+      <button class="retry-btn" *ngIf="!card" (click)="ngOnInit()">Reintentar</button>
+    </div>
+
+    <!-- ESTADO: EMPTY -->
+    <div class="state-container" *ngIf="state === 'empty'">
+      <div class="state-icon">📭</div>
+      <h3 class="state-title">Carta no encontrada</h3>
+      <p class="state-text">No se encontró información para los datos proporcionados.</p>
+      <button class="retry-btn" (click)="onClose()">Volver</button>
+    </div>
+
+    <!-- ESTADO: SUCCESS -->
+    <div class="detail-content" *ngIf="state === 'success' && card">
+      <div class="detail-grid">
+        
+        <!-- COLUMNA IZQUIERDA: IMAGEN -->
+        <div class="image-column">
+          <div class="image-frame">
+            <img 
+              [src]="card.card_images[0]?.image_url || card.card_images[0]?.image_url_small" 
+              [alt]="card.name"
+              class="full-card-image"
+            />
+          </div>
+          <div class="card-id-tag">
+            ID YGOPRODeck: #{{ card.id }}
+          </div>
+        </div>
+
+        <!-- COLUMNA DERECHA: PROPIEDADES Y DESCRIPCIÓN -->
+        <div class="info-column">
+          
+          <!-- ATRIBUTO, NIVEL, ARQUETIPO -->
+          <div class="props-grid">
+            <div class="prop-card" *ngIf="card.archetype">
+              <span class="prop-label">Arquetipo</span>
+              <span class="prop-val highlight">{{ card.archetype }}</span>
+            </div>
+
+            <div class="prop-card" *ngIf="card.attribute">
+              <span class="prop-label">Atributo</span>
+              <span class="prop-val">{{ card.attribute }}</span>
+            </div>
+
+            <div class="prop-card" *ngIf="card.level !== undefined">
+              <span class="prop-label">Nivel / Rango</span>
+              <span class="prop-val">⭐ {{ card.level }}</span>
+            </div>
+
+            <div class="prop-card" *ngIf="card.race">
+              <span class="prop-label">Raza / Subtipo</span>
+              <span class="prop-val">{{ card.race }}</span>
+            </div>
+
+            <div class="prop-card atk-card" *ngIf="card.atk !== undefined">
+              <span class="prop-label">ATK</span>
+              <span class="prop-val atk-val">{{ card.atk }}</span>
+            </div>
+
+            <div class="prop-card def-card" *ngIf="card.def !== undefined">
+              <span class="prop-label">DEF</span>
+              <span class="prop-val def-val">{{ card.def }}</span>
+            </div>
+          </div>
+
+          <!-- DESCRIPCIÓN O EFECTO -->
+          <div class="desc-box">
+            <h4 class="desc-title">Descripción / Efecto:</h4>
+            <p class="desc-text">{{ card.desc }}</p>
+          </div>
+
+          <!-- PRECIOS DE MERCADO -->
+          <div class="prices-box" *ngIf="card.card_prices && card.card_prices.length > 0">
+            <span class="prices-title">Precios referenciales:</span>
+            <div class="price-items">
+              <span class="price-tag" *ngIf="card.card_prices[0].cardmarket_price">
+                Cardmarket: <strong>${{ card.card_prices[0].cardmarket_price }}</strong>
+              </span>
+              <span class="price-tag" *ngIf="card.card_prices[0].tcgplayer_price">
+                TCGPlayer: <strong>${{ card.card_prices[0].tcgplayer_price }}</strong>
+              </span>
+              <span class="price-tag" *ngIf="card.card_prices[0].ebay_price">
+                eBay: <strong>${{ card.card_prices[0].ebay_price }}</strong>
+              </span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- SECCIÓN RF-05: EXPANSIONES E IMPRESIONES -->
+      <div class="expansions-section" *ngIf="card.card_sets && card.card_sets.length > 0">
+        <h3 class="section-title">
+          <span>📦 Impresiones y Expansiones</span>
+          <span class="counter-badge">{{ card.card_sets.length }} ediciones</span>
+        </h3>
+
+        <div class="table-container">
+          <table class="sets-table">
+            <thead>
+              <tr>
+                <th>Expansión (Set)</th>
+                <th>Código</th>
+                <th>Rareza</th>
+                <th>Precio</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let s of card.card_sets">
+                <td class="set-name-cell">{{ s.set_name }}</td>
+                <td class="set-code-cell"><code>{{ s.set_code }}</code></td>
+                <td>
+                  <span class="rarity-badge">{{ s.set_rarity }}</span>
+                </td>
+                <td class="price-cell">${{ s.set_price }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="expansions-empty" *ngIf="!card.card_sets || card.card_sets.length === 0">
+        <p>Esta carta no tiene expansiones físicas registradas en la API.</p>
+      </div>
+
+    </div>
+  </div>
+</div>
