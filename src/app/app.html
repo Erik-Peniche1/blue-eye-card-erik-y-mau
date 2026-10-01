@@ -1,10 +1,10 @@
 <div class="app-layout">
   
-  <!-- NAVBAR PRINCIPAL -->
+  <!-- NAVBAR -->
   <header class="navbar">
     <div class="nav-container">
       
-      <!-- LOGO / BRANDING -->
+      <!-- LOGO -->
       <a routerLink="/blue-eyes" class="brand-link">
         <div class="brand-icon">🐉</div>
         <div class="brand-text">
@@ -13,7 +13,7 @@
         </div>
       </a>
 
-      <!-- ENLACES DE NAVEGACIÓN -->
+      <!-- NAVEGACIÓN -->
       <nav class="nav-links">
         <a 
           routerLink="/search" 
@@ -22,45 +22,34 @@
         >
           <span class="nav-icon">🔍</span>
           <span>Buscador</span>
-          <span class="nav-tag">RF-01</span>
         </a>
 
         <a 
           routerLink="/blue-eyes" 
           routerLinkActive="active" 
-          class="nav-item nav-special"
+          class="nav-item nav-gold"
         >
-          <span class="nav-icon">✨</span>
+          <span class="nav-icon">⭐</span>
           <span>Blue-Eyes Collection</span>
-          <span class="nav-tag">RF-04</span>
         </a>
       </nav>
-
-      <!-- API STATUS -->
-      <div class="api-status">
-        <span class="status-dot"></span>
-        <span class="status-label">YGOPRODeck v7 API</span>
-      </div>
 
     </div>
   </header>
 
-  <!-- VISTA PRINCIPAL (ROUTER OUTLET) -->
+  <!-- VISTA PRINCIPAL -->
   <main class="main-content">
     <router-outlet></router-outlet>
   </main>
 
-  <!-- FOOTER TÉCNICO Y DE ENTREGA -->
+  <!-- FOOTER LIMPIO -->
   <footer class="footer">
     <div class="footer-container">
       <div class="footer-top">
         <div class="footer-block">
           <h4 class="footer-heading">Blue-Eyes Card Explorer</h4>
           <p class="footer-sub">
-            Examen Práctico de Aplicaciones Web • Ingeniería en Desarrollo y Gestión de Software
-          </p>
-          <p class="footer-evaluator">
-            Elaboró: <strong>Mtra. Michelle Quintal</strong> • Valor: <strong>100 puntos</strong>
+            Aplicaciones Web • Ingeniería en Desarrollo y Gestión de Software
           </p>
         </div>
 
@@ -71,21 +60,10 @@
             <li><strong>Integrante 2:</strong> [Nombre del Alumno 2]</li>
           </ul>
         </div>
-
-        <div class="footer-block stack-block">
-          <h4 class="footer-heading">Stack Tecnológico</h4>
-          <div class="stack-badges">
-            <span class="stack-pill">Angular 22+</span>
-            <span class="stack-pill">TypeScript</span>
-            <span class="stack-pill">HttpClient</span>
-            <span class="stack-pill">RxJS</span>
-          </div>
-        </div>
       </div>
 
       <div class="footer-bottom">
-        <p>© 2026 Blue-Eyes Card Explorer • Datos provistos por la API pública de YGOPRODeck.</p>
-        <p class="footer-note">Cumple 100% de la rúbrica y restricciones técnicas.</p>
+        <p>© Blue-Eyes Card Explorer • Base de datos YGOPRODeck</p>
       </div>
     </div>
   </footer>

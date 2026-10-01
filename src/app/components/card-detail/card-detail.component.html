@@ -9,9 +9,9 @@
           'badge-trap': isTrap,
           'badge-monster': isMonster
         }">{{ card?.type || 'Carta' }}</span>
-        <h2 class="card-name">{{ card?.name || 'Detalles de la Carta' }}</h2>
+        <h2 class="card-name">{{ card?.name || 'Detalles' }}</h2>
       </div>
-      <button type="button" class="close-btn" (click)="onClose()" aria-label="Cerrar detalle">
+      <button type="button" class="close-btn" (click)="onClose()" aria-label="Cerrar">
         ✕
       </button>
     </div>
@@ -19,7 +19,7 @@
     <!-- ESTADO: LOADING -->
     <div class="state-container" *ngIf="state === 'loading'">
       <div class="spinner"></div>
-      <p class="state-text">Cargando información de la carta...</p>
+      <p class="state-text">Cargando información...</p>
     </div>
 
     <!-- ESTADO: ERROR -->
@@ -34,7 +34,6 @@
     <div class="state-container" *ngIf="state === 'empty'">
       <div class="state-icon">📭</div>
       <h3 class="state-title">Carta no encontrada</h3>
-      <p class="state-text">No se encontró información para los datos proporcionados.</p>
       <button class="retry-btn" (click)="onClose()">Volver</button>
     </div>
 
@@ -52,14 +51,13 @@
             />
           </div>
           <div class="card-id-tag">
-            ID YGOPRODeck: #{{ card.id }}
+            ID: #{{ card.id }}
           </div>
         </div>
 
         <!-- COLUMNA DERECHA: PROPIEDADES Y DESCRIPCIÓN -->
         <div class="info-column">
           
-          <!-- ATRIBUTO, NIVEL, ARQUETIPO -->
           <div class="props-grid">
             <div class="prop-card" *ngIf="card.archetype">
               <span class="prop-label">Arquetipo</span>
@@ -72,12 +70,12 @@
             </div>
 
             <div class="prop-card" *ngIf="card.level !== undefined">
-              <span class="prop-label">Nivel / Rango</span>
+              <span class="prop-label">Nivel</span>
               <span class="prop-val">⭐ {{ card.level }}</span>
             </div>
 
             <div class="prop-card" *ngIf="card.race">
-              <span class="prop-label">Raza / Subtipo</span>
+              <span class="prop-label">Tipo</span>
               <span class="prop-val">{{ card.race }}</span>
             </div>
 
@@ -92,15 +90,15 @@
             </div>
           </div>
 
-          <!-- DESCRIPCIÓN O EFECTO -->
+          <!-- DESCRIPCIÓN -->
           <div class="desc-box">
-            <h4 class="desc-title">Descripción / Efecto:</h4>
+            <h4 class="desc-title">Descripción:</h4>
             <p class="desc-text">{{ card.desc }}</p>
           </div>
 
-          <!-- PRECIOS DE MERCADO -->
+          <!-- PRECIOS -->
           <div class="prices-box" *ngIf="card.card_prices && card.card_prices.length > 0">
-            <span class="prices-title">Precios referenciales:</span>
+            <span class="prices-title">Precios de mercado:</span>
             <div class="price-items">
               <span class="price-tag" *ngIf="card.card_prices[0].cardmarket_price">
                 Cardmarket: <strong>${{ card.card_prices[0].cardmarket_price }}</strong>
@@ -117,10 +115,10 @@
         </div>
       </div>
 
-      <!-- SECCIÓN RF-05: EXPANSIONES E IMPRESIONES -->
+      <!-- TABLA DE EXPANSIONES -->
       <div class="expansions-section" *ngIf="card.card_sets && card.card_sets.length > 0">
         <h3 class="section-title">
-          <span>📦 Impresiones y Expansiones</span>
+          <span>📦 Expansiones e Impresiones</span>
           <span class="counter-badge">{{ card.card_sets.length }} ediciones</span>
         </h3>
 
@@ -128,7 +126,7 @@
           <table class="sets-table">
             <thead>
               <tr>
-                <th>Expansión (Set)</th>
+                <th>Expansión</th>
                 <th>Código</th>
                 <th>Rareza</th>
                 <th>Precio</th>
@@ -146,10 +144,6 @@
             </tbody>
           </table>
         </div>
-      </div>
-
-      <div class="expansions-empty" *ngIf="!card.card_sets || card.card_sets.length === 0">
-        <p>Esta carta no tiene expansiones físicas registradas en la API.</p>
       </div>
 
     </div>

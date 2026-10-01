@@ -2,8 +2,8 @@
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  background-color: #0b0f17;
-  color: #f1f5f9;
+  background-color: #08090d;
+  color: #ffffff;
 }
 
 /* NAVBAR */
@@ -11,9 +11,9 @@
   position: sticky;
   top: 0;
   z-index: 100;
-  background: rgba(11, 15, 23, 0.85);
+  background: rgba(10, 11, 16, 0.95);
   backdrop-filter: blur(12px);
-  border-bottom: 1px solid rgba(96, 165, 250, 0.15);
+  border-bottom: 1px solid rgba(245, 158, 11, 0.2);
 }
 
 .nav-container {
@@ -31,23 +31,19 @@
   align-items: center;
   gap: 12px;
   text-decoration: none;
-  transition: transform 0.2s;
-}
-
-.brand-link:hover {
-  transform: scale(1.02);
 }
 
 .brand-icon {
-  font-size: 1.8rem;
-  background: rgba(30, 58, 138, 0.4);
-  border: 1px solid rgba(96, 165, 250, 0.3);
-  width: 44px;
-  height: 44px;
+  font-size: 1.6rem;
+  background: rgba(245, 158, 11, 0.12);
+  border: 1px solid rgba(245, 158, 11, 0.35);
+  width: 42px;
+  height: 42px;
   border-radius: 10px;
   display: flex;
   align-items: center;
   justify-content: center;
+  box-shadow: 0 0 12px rgba(245, 158, 11, 0.15);
 }
 
 .brand-text {
@@ -66,13 +62,13 @@
   font-size: 0.65rem;
   font-weight: 700;
   letter-spacing: 1.5px;
-  color: #60a5fa;
+  color: #fbbf24;
 }
 
 .nav-links {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
 }
 
 .nav-item {
@@ -81,66 +77,29 @@
   gap: 8px;
   padding: 8px 16px;
   border-radius: 8px;
-  font-size: 0.88rem;
+  font-size: 0.9rem;
   font-weight: 600;
-  color: #94a3b8;
+  color: #9ca3af;
   text-decoration: none;
   transition: all 0.2s ease;
   border: 1px solid transparent;
 }
 
 .nav-item:hover {
-  color: #f1f5f9;
+  color: #ffffff;
   background: rgba(255, 255, 255, 0.05);
 }
 
 .nav-item.active {
-  color: #60a5fa;
-  background: rgba(59, 130, 246, 0.12);
-  border-color: rgba(59, 130, 246, 0.3);
+  color: #fbbf24;
+  background: rgba(245, 158, 11, 0.12);
+  border-color: rgba(245, 158, 11, 0.3);
 }
 
-.nav-tag {
-  font-size: 0.65rem;
-  background: rgba(255, 255, 255, 0.08);
-  padding: 1px 6px;
-  border-radius: 4px;
-  color: #cbd5e1;
-}
-
-.nav-special.active {
-  background: linear-gradient(135deg, rgba(30, 58, 138, 0.3), rgba(59, 130, 246, 0.2));
-  border-color: rgba(96, 165, 250, 0.4);
-}
-
-.api-status {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  background: rgba(16, 185, 129, 0.1);
-  border: 1px solid rgba(16, 185, 129, 0.25);
-  padding: 6px 12px;
-  border-radius: 999px;
-}
-
-.status-dot {
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background-color: #10b981;
-  box-shadow: 0 0 8px #10b981;
-}
-
-.status-label {
-  font-size: 0.72rem;
-  font-weight: 600;
-  color: #6ee7b7;
-}
-
-@media (max-width: 680px) {
-  .api-status {
-    display: none;
-  }
+.nav-gold.active {
+  background: rgba(245, 158, 11, 0.15);
+  border-color: rgba(245, 158, 11, 0.4);
+  box-shadow: 0 0 14px rgba(245, 158, 11, 0.15);
 }
 
 /* MAIN CONTENT */
@@ -151,9 +110,9 @@
 /* FOOTER */
 .footer {
   margin-top: auto;
-  background: #080c13;
-  border-top: 1px solid rgba(255, 255, 255, 0.06);
-  padding: 40px 20px 24px 20px;
+  background: #050608;
+  border-top: 1px solid rgba(245, 158, 11, 0.15);
+  padding: 36px 20px 24px 20px;
 }
 
 .footer-container {
@@ -162,32 +121,26 @@
 }
 
 .footer-top {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 30px;
-  padding-bottom: 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 24px;
+  padding-bottom: 24px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.06);
 }
 
 .footer-heading {
-  margin: 0 0 10px 0;
+  margin: 0 0 8px 0;
   font-size: 0.95rem;
   font-weight: 700;
-  color: #f8fafc;
-  letter-spacing: 0.3px;
+  color: #ffffff;
 }
 
 .footer-sub {
-  margin: 0 0 8px 0;
-  font-size: 0.85rem;
-  color: #94a3b8;
-  line-height: 1.4;
-}
-
-.footer-evaluator {
   margin: 0;
-  font-size: 0.82rem;
-  color: #60a5fa;
+  font-size: 0.85rem;
+  color: #9ca3af;
 }
 
 .students-list {
@@ -198,40 +151,15 @@
   flex-direction: column;
   gap: 6px;
   font-size: 0.85rem;
-  color: #cbd5e1;
-}
-
-.stack-badges {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-}
-
-.stack-pill {
-  font-size: 0.75rem;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  padding: 4px 10px;
-  border-radius: 6px;
-  color: #93c5fd;
-  font-weight: 600;
+  color: #e5e7eb;
 }
 
 .footer-bottom {
   padding-top: 20px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 10px;
   font-size: 0.78rem;
-  color: #64748b;
+  color: #6b7280;
 }
 
 .footer-bottom p {
   margin: 0;
-}
-
-.footer-note {
-  color: #34d399;
 }

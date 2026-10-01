@@ -1,30 +1,30 @@
 .card-item {
   display: flex;
   flex-direction: column;
-  background: linear-gradient(145deg, #161b26, #0e121a);
-  border: 1px solid rgba(100, 160, 255, 0.15);
+  background: linear-gradient(145deg, #14151d, #0c0d12);
+  border: 1px solid rgba(245, 158, 11, 0.15);
   border-radius: 12px;
   overflow: hidden;
-  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.5);
   transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
   cursor: pointer;
   height: 100%;
 }
 
 .card-item:hover {
-  transform: translateY(-6px);
-  border-color: rgba(96, 165, 250, 0.5);
-  box-shadow: 0 12px 28px rgba(37, 99, 235, 0.25);
+  transform: translateY(-5px);
+  border-color: rgba(245, 158, 11, 0.45);
+  box-shadow: 0 10px 24px rgba(245, 158, 11, 0.15);
 }
 
 .card-image-wrapper {
   position: relative;
   width: 100%;
-  padding-top: 10px;
+  padding-top: 12px;
   display: flex;
   justify-content: center;
   align-items: center;
-  background: radial-gradient(circle at center, rgba(30, 58, 138, 0.2) 0%, transparent 70%);
+  background: radial-gradient(circle at center, rgba(245, 158, 11, 0.08) 0%, transparent 70%);
 }
 
 .card-image {
@@ -32,27 +32,26 @@
   max-width: 220px;
   height: auto;
   border-radius: 6px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.6);
   transition: transform 0.25s ease;
 }
 
 .card-item:hover .card-image {
-  transform: scale(1.03);
+  transform: scale(1.02);
 }
 
 .card-badge {
   position: absolute;
   top: 14px;
   right: 14px;
-  font-size: 0.7rem;
+  font-size: 0.68rem;
   font-weight: 700;
   text-transform: uppercase;
   padding: 3px 8px;
   border-radius: 999px;
-  background: #374151;
-  color: #f3f4f6;
+  background: #262626;
+  color: #ffffff;
   letter-spacing: 0.5px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
 }
 
 .badge-monster {
@@ -66,7 +65,7 @@
 }
 
 .badge-trap {
-  background: linear-gradient(135deg, #be185d, #ec4899);
+  background: linear-gradient(135deg, #9d174d, #db2777);
   color: #fff;
 }
 
@@ -82,7 +81,7 @@
   margin: 0;
   font-size: 1.05rem;
   font-weight: 700;
-  color: #f8fafc;
+  color: #ffffff;
   line-height: 1.3;
   display: -webkit-box;
   -webkit-line-clamp: 2;
@@ -103,30 +102,30 @@
   font-weight: 600;
   padding: 2px 8px;
   border-radius: 6px;
-  background: rgba(255, 255, 255, 0.06);
-  color: #cbd5e1;
+  background: rgba(255, 255, 255, 0.05);
+  color: #d1d5db;
   display: inline-flex;
   align-items: center;
   gap: 4px;
 }
 
 .attribute-pill {
-  background: rgba(59, 130, 246, 0.15);
-  color: #93c5fd;
-  border: 1px solid rgba(59, 130, 246, 0.3);
+  background: rgba(245, 158, 11, 0.12);
+  color: #fbbf24;
+  border: 1px solid rgba(245, 158, 11, 0.25);
 }
 
 .pill-dot {
   width: 6px;
   height: 6px;
   border-radius: 50%;
-  background-color: #60a5fa;
+  background-color: #fbbf24;
 }
 
 .level-pill {
-  background: rgba(245, 158, 11, 0.15);
-  color: #fcd34d;
-  border: 1px solid rgba(245, 158, 11, 0.3);
+  background: rgba(251, 191, 36, 0.15);
+  color: #fef08a;
+  border: 1px solid rgba(251, 191, 36, 0.3);
 }
 
 .card-stats {
@@ -134,7 +133,7 @@
   grid-template-columns: 1fr 1fr;
   gap: 8px;
   margin-top: auto;
-  background: rgba(15, 23, 42, 0.6);
+  background: rgba(0, 0, 0, 0.4);
   padding: 8px 12px;
   border-radius: 8px;
   border: 1px solid rgba(255, 255, 255, 0.05);
@@ -149,7 +148,7 @@
 .stat-label {
   font-size: 0.65rem;
   font-weight: 700;
-  color: #94a3b8;
+  color: #9ca3af;
   letter-spacing: 0.5px;
 }
 
@@ -164,7 +163,7 @@
 .stat-value {
   font-size: 1rem;
   font-weight: 800;
-  color: #f1f5f9;
+  color: #ffffff;
 }
 
 .non-monster-info {
@@ -173,9 +172,9 @@
   flex-direction: column;
   gap: 4px;
   font-size: 0.75rem;
-  color: #94a3b8;
+  color: #9ca3af;
   padding: 6px 10px;
-  background: rgba(15, 23, 42, 0.5);
+  background: rgba(0, 0, 0, 0.3);
   border-radius: 6px;
 }
 
@@ -186,9 +185,9 @@
   align-items: center;
   justify-content: center;
   gap: 6px;
-  background: rgba(59, 130, 246, 0.12);
-  color: #60a5fa;
-  border: 1px solid rgba(59, 130, 246, 0.3);
+  background: rgba(245, 158, 11, 0.1);
+  color: #fbbf24;
+  border: 1px solid rgba(245, 158, 11, 0.25);
   padding: 8px 12px;
   border-radius: 8px;
   font-size: 0.82rem;
@@ -198,7 +197,7 @@
 }
 
 .view-detail-btn:hover {
-  background: #2563eb;
-  color: #ffffff;
-  border-color: #2563eb;
+  background: #f59e0b;
+  color: #000000;
+  border-color: #f59e0b;
 }

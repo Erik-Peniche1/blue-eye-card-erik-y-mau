@@ -1,8 +1,8 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { Subject, Subscription } from 'rxjs';
-import { debounceTime, distinctUntilChanged, switchMap, tap } from 'rxjs/operators';
+import { Subject, Subscription, of } from 'rxjs';
+import { debounceTime, distinctUntilChanged, switchMap, tap, catchError } from 'rxjs/operators';
 import { Card, ViewState } from '../../models/card.model';
 import { YugiohService } from '../../services/yugioh.service';
 import { CardComponent } from '../card/card.component';
@@ -22,36 +22,44 @@ export class SearchComponent implements OnInit, OnDestroy {
   state: ViewState = 'empty';
   errorMessage = '';
 
-  // RxJS Subject para emitir los términos ingresados por el usuario
   private searchSubject = new Subject<string>();
   private searchSubscription?: Subscription;
 
-  constructor(private yugiohService: YugiohService) {}
+  constructor(
+    private yugiohService: YugiohService,
+    private cdr: ChangeDetectorRef
+  ) {}
 
   ngOnInit(): void {
-    /**
-     * RF-01: Implementación con operadores RxJS:
-     * - debounceTime(400): Espera 400ms después de que el usuario deja de escribir.
-     * - distinctUntilChanged(): Evita peticiones redundantes si el término no cambió.
-     * - switchMap(): Cancela peticiones HTTP previas pendientes y se suscribe al nuevo Observable.
-     */
     this.searchSubscription = this.searchSubject.pipe(
-      debounceTime(400),
+      debounceTime(350),
       distinctUntilChanged(),
       tap((term) => {
-        if (term.trim().length > 0) {
+        const trimmed = term.trim();
+        if (trimmed.length > 0) {
           this.state = 'loading';
           this.errorMessage = '';
+          this.cdr.markForCheck();
+        } else {
+          this.state = 'empty';
+          this.cards = [];
+          this.cdr.markForCheck();
         }
       }),
       switchMap((term) => {
         const trimmed = term.trim();
         if (!trimmed) {
-          this.state = 'empty';
-          this.cards = [];
-          return [];
+          return of([]);
         }
-        return this.yugiohService.searchCards(trimmed);
+        return this.yugiohService.searchCards(trimmed).pipe(
+          catchError((err) => {
+            console.error('Error en búsqueda de cartas:', err);
+            this.state = 'error';
+            this.errorMessage = 'No fue posible consultar la base de datos de cartas.';
+            this.cdr.markForCheck();
+            return of([]);
+          })
+        );
       })
     ).subscribe({
       next: (results: Card[]) => {
@@ -63,16 +71,12 @@ export class SearchComponent implements OnInit, OnDestroy {
         } else {
           this.state = 'empty';
         }
-      },
-      error: (err) => {
-        console.error('Error durante la búsqueda de cartas:', err);
-        this.state = 'error';
-        this.errorMessage = 'Hubo un error al comunicarse con la API de YGOPRODeck. Por favor verifica tu conexión o intenta nuevamente.';
+        this.cdr.markForCheck();
       }
     });
 
-    // Realizar una búsqueda inicial representativa para que la vista inicial sea atractiva
-    this.setPresetTerm('Dark Magician');
+    // Se deja el buscador vacío al iniciar por especificación
+    this.state = 'empty';
   }
 
   ngOnDestroy(): void {

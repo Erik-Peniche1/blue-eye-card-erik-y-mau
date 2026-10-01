@@ -2,75 +2,74 @@
   
   <!-- HERO / ENCABEZADO -->
   <section class="search-hero">
-    <div class="hero-badge">RF-01 & RF-02 • YGOPRODeck API Explorer</div>
-    <h1 class="hero-title">Buscador de Cartas de Yu-Gi-Oh!</h1>
+    <h1 class="hero-title">Buscador de Cartas</h1>
     <p class="hero-subtitle">
-      Introduce el nombre completo o parcial de cualquier carta. Búsqueda reactiva optimizada con <strong>RxJS</strong> (<code>debounceTime</code>, <code>distinctUntilChanged</code> y <code>switchMap</code>).
+      Encuentra cualquier carta de Yu-Gi-Oh! por su nombre completo o parcial
     </p>
 
-    <!-- BARRA DE BÚSQUEDA REACTIVA -->
+    <!-- BARRA DE BÚSQUEDA -->
     <div class="search-bar-wrapper">
-      <div class="input-icon">🔍</div>
+      <span class="input-icon">🔍</span>
       <input 
         type="text" 
         class="search-input"
-        placeholder="Ej: Dark Magician, Kuriboh, Blue-Eyes..." 
+        placeholder="Escribe el nombre de una carta..." 
         [ngModel]="searchTerm"
         (ngModelChange)="onInput($event)"
         autocomplete="off"
-        aria-label="Buscar carta por nombre"
+        aria-label="Buscar carta"
       />
       <button 
         *ngIf="searchTerm" 
         type="button" 
         class="clear-btn" 
         (click)="onInput('')"
-        title="Limpiar búsqueda"
+        title="Limpiar"
       >
         ✕
       </button>
     </div>
 
-    <!-- EJEMPLOS RÁPIDOS MENCIONADOS EN LA RÚBRICA -->
+    <!-- SUGERENCIAS RÁPIDAS -->
     <div class="quick-tags">
-      <span class="tags-label">Ejemplos del examen:</span>
+      <span class="tags-label">Sugerencias:</span>
       <button type="button" class="preset-tag" (click)="setPresetTerm('Blue-Eyes')">Blue-Eyes</button>
       <button type="button" class="preset-tag" (click)="setPresetTerm('Dark Magician')">Dark Magician</button>
       <button type="button" class="preset-tag" (click)="setPresetTerm('Kuriboh')">Kuriboh</button>
     </div>
   </section>
 
-  <!-- CONTENEDOR PRINCIPAL DE RESULTADOS Y ESTADOS (RF-07) -->
+  <!-- CONTENEDOR DE RESULTADOS Y ESTADOS -->
   <section class="results-section">
     
     <!-- ESTADO: LOADING -->
     <div class="state-box" *ngIf="state === 'loading'">
       <div class="loading-spinner"></div>
-      <h3 class="state-heading">Consultando la API de YGOPRODeck...</h3>
-      <p class="state-sub">Aplicando debouncing reactivo para evitar peticiones por cada tecla.</p>
+      <h3 class="state-heading">Buscando cartas...</h3>
     </div>
 
     <!-- ESTADO: ERROR -->
     <div class="state-box state-error" *ngIf="state === 'error'">
       <div class="state-icon">⚠️</div>
-      <h3 class="state-heading">Ocurrió un problema de conexión</h3>
+      <h3 class="state-heading">Error al consultar la carta</h3>
       <p class="state-sub">{{ errorMessage }}</p>
-      <button type="button" class="action-btn" (click)="retry()">Reintentar consulta</button>
+      <button type="button" class="action-btn" (click)="retry()">Reintentar</button>
     </div>
 
     <!-- ESTADO: EMPTY -->
     <div class="state-box state-empty" *ngIf="state === 'empty'">
       <div class="state-icon">🃏</div>
-      <h3 class="state-heading">Sin resultados encontrados</h3>
+      <h3 class="state-heading" *ngIf="searchTerm.trim()">Sin resultados</h3>
+      <h3 class="state-heading" *ngIf="!searchTerm.trim()">Búsqueda de cartas</h3>
       <p class="state-sub" *ngIf="searchTerm.trim()">
-        No se encontró ninguna carta con el término "<strong>{{ searchTerm }}</strong>". Intenta con otro nombre.
+        No se encontraron coincidencias para "{{ searchTerm }}".
       </p>
       <p class="state-sub" *ngIf="!searchTerm.trim()">
-        Escribe el nombre o fragmento del nombre de una carta para comenzar la búsqueda.
+        Escribe en el buscador o selecciona una sugerencia para comenzar.
       </p>
     </div>
 
-    <!-- ESTADO: SUCCESS (RF-02) -->
+    <!-- ESTADO: SUCCESS -->
     <div class="results-container" *ngIf="state === 'success'">
       <div class="results-header">
         <h2 class="results-count">
@@ -90,7 +89,7 @@
 
   </section>
 
-  <!-- MODAL DE DETALLE (RF-03) -->
+  <!-- MODAL DE DETALLE -->
   <app-card-detail
     *ngIf="selectedCard"
     [card]="selectedCard"

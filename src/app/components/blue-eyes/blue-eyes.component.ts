@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Card, ViewState } from '../../models/card.model';
@@ -23,28 +23,24 @@ export class BlueEyesComponent implements OnInit {
   state: ViewState = 'loading';
   errorMessage = '';
 
-  constructor(private yugiohService: YugiohService) {}
+  constructor(
+    private yugiohService: YugiohService,
+    private cdr: ChangeDetectorRef
+  ) {}
 
   ngOnInit(): void {
     this.loadBlueEyesCollection();
   }
 
-  /**
-   * RF-04: Consulta a la API para recuperar cartas del arquetipo Blue-Eyes.
-   * RF-05: Procesa las impresiones y genera automáticamente la lista de expansiones sin duplicados.
-   */
   loadBlueEyesCollection(): void {
     this.state = 'loading';
     this.errorMessage = '';
+    this.cdr.markForCheck();
 
     this.yugiohService.getBlueEyesCards().subscribe({
       next: (cards: Card[]) => {
         this.allCards = cards;
-
-        // RF-05: Generación automática de lista única de expansiones sin duplicados
         this.uniqueExpansions = this.yugiohService.extractUniqueSets(cards);
-
-        // Aplica el filtro inicial ('ALL')
         this.applyFilter();
 
         if (cards.length > 0) {
@@ -52,21 +48,21 @@ export class BlueEyesComponent implements OnInit {
         } else {
           this.state = 'empty';
         }
+        this.cdr.markForCheck();
       },
       error: (err) => {
         console.error('Error al cargar la colección Blue-Eyes:', err);
         this.state = 'error';
-        this.errorMessage = 'No se pudo cargar la colección de cartas Blue-Eyes desde YGOPRODeck. Por favor verifica tu conexión a internet.';
+        this.errorMessage = 'No fue posible cargar la colección de cartas Blue-Eyes. Por favor verifica tu conexión a internet.';
+        this.cdr.markForCheck();
       }
     });
   }
 
-  /**
-   * RF-06: Filtro dinámico por expansión seleccionada.
-   */
   onExpansionChange(newExpansion: string): void {
     this.selectedExpansion = newExpansion;
     this.applyFilter();
+    this.cdr.markForCheck();
   }
 
   applyFilter(): void {
@@ -76,6 +72,7 @@ export class BlueEyesComponent implements OnInit {
   resetFilter(): void {
     this.selectedExpansion = 'ALL';
     this.applyFilter();
+    this.cdr.markForCheck();
   }
 
   onSelectCard(card: Card): void {

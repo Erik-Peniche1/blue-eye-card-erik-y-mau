@@ -1,14 +1,13 @@
 <div class="blue-eyes-page-container">
   
-  <!-- HERO / ENCABEZADO DE LA SECCIÓN -->
+  <!-- HERO / ENCABEZADO -->
   <section class="blue-eyes-hero">
-    <div class="dragon-badge">🐉 Arquetipo Legendario • RF-04</div>
     <h1 class="hero-title">Blue-Eyes Collection</h1>
     <p class="hero-subtitle">
-      Explora todas las cartas pertenecientes al mítico arquetipo <strong>Blue-Eyes</strong> consumidas en tiempo real desde la API de YGOPRODeck, con extracción automática de impresiones y filtrado por expansión.
+      Colección completa de cartas del arquetipo Blue-Eyes y sus expansiones oficiales
     </p>
 
-    <!-- ESTADÍSTICAS EN VIVO -->
+    <!-- ESTADÍSTICAS -->
     <div class="stats-row" *ngIf="state === 'success'">
       <div class="stat-pill">
         <span class="stat-num">{{ allCards.length }}</span>
@@ -25,15 +24,15 @@
     </div>
   </section>
 
-  <!-- BARRA DE FILTRADO DINÁMICO POR EXPANSIÓN (RF-06) -->
+  <!-- FILTRO POR EXPANSIÓN -->
   <section class="filter-section" *ngIf="state === 'success' || (state !== 'loading' && allCards.length > 0)">
     <div class="filter-card">
       <div class="filter-header">
         <div class="filter-label-group">
           <span class="filter-icon">📦</span>
           <div>
-            <h3 class="filter-title">Filtrar por Expansión (Set)</h3>
-            <p class="filter-desc">Generado dinámicamente sin duplicados desde las impresiones de la API (RF-05 & RF-06)</p>
+            <h3 class="filter-title">Filtrar por Expansión</h3>
+            <p class="filter-desc">Selecciona un set para ver sus cartas correspondientes</p>
           </div>
         </div>
 
@@ -43,7 +42,7 @@
           class="reset-filter-btn" 
           (click)="resetFilter()"
         >
-          Limpiar filtro (Mostrar todas)
+          Mostrar todas
         </button>
       </div>
 
@@ -54,7 +53,7 @@
           (ngModelChange)="onExpansionChange($event)"
           aria-label="Seleccionar expansión de Blue-Eyes"
         >
-          <option value="ALL">🌟 Todas las expansiones ({{ allCards.length }} cartas)</option>
+          <option value="ALL">Todas las expansiones ({{ allCards.length }} cartas)</option>
           <option *ngFor="let set of uniqueExpansions" [value]="set">
             {{ set }}
           </option>
@@ -62,20 +61,19 @@
       </div>
 
       <div class="active-filter-indicator" *ngIf="selectedExpansion !== 'ALL'">
-        Mostrando cartas con impresiones en: <strong>"{{ selectedExpansion }}"</strong>
-        <span class="tag-counter">({{ filteredCards.length }} coincidencia{{ filteredCards.length === 1 ? '' : 's' }})</span>
+        Expansión activa: <strong>{{ selectedExpansion }}</strong>
+        <span class="tag-counter">({{ filteredCards.length }} carta{{ filteredCards.length === 1 ? '' : 's' }})</span>
       </div>
     </div>
   </section>
 
-  <!-- CONTENEDOR DE ESTADOS Y RESULTADOS (RF-07) -->
+  <!-- CONTENEDOR DE ESTADOS Y RESULTADOS -->
   <section class="collection-content">
 
     <!-- ESTADO: LOADING -->
     <div class="state-box" *ngIf="state === 'loading'">
       <div class="loading-spinner"></div>
-      <h3 class="state-heading">Consultando la Blue-Eyes Collection...</h3>
-      <p class="state-sub">Recuperando cartas del arquetipo y procesando expansiones únicas desde la API.</p>
+      <h3 class="state-heading">Cargando colección Blue-Eyes...</h3>
     </div>
 
     <!-- ESTADO: ERROR -->
@@ -83,27 +81,24 @@
       <div class="state-icon">⚠️</div>
       <h3 class="state-heading">Error al cargar la colección</h3>
       <p class="state-sub">{{ errorMessage }}</p>
-      <button type="button" class="action-btn" (click)="loadBlueEyesCollection()">Reintentar conexión</button>
+      <button type="button" class="action-btn" (click)="loadBlueEyesCollection()">Reintentar</button>
     </div>
 
     <!-- ESTADO: EMPTY -->
     <div class="state-box state-empty" *ngIf="state === 'empty'">
       <div class="state-icon">🐉</div>
       <h3 class="state-heading">No se encontraron cartas</h3>
-      <p class="state-sub">La consulta al arquetipo Blue-Eyes no devolvió resultados en este momento.</p>
       <button type="button" class="action-btn" (click)="loadBlueEyesCollection()">Actualizar</button>
     </div>
 
     <!-- ESTADO: SUCCESS -->
     <div class="results-container" *ngIf="state === 'success'">
       
-      <!-- CUANDO EL FILTRO NO DEJA RESULTADOS -->
       <div class="no-filter-results" *ngIf="filteredCards.length === 0">
         <p>No hay cartas en la colección que correspondan a la expansión seleccionada.</p>
-        <button type="button" class="reset-filter-btn" (click)="resetFilter()">Ver todas las cartas</button>
+        <button type="button" class="reset-filter-btn" (click)="resetFilter()">Ver todas</button>
       </div>
 
-      <!-- GRID DE CARTAS REUTILIZANDO CardComponent (RF-04) -->
       <div class="cards-grid" *ngIf="filteredCards.length > 0">
         <app-card 
           *ngFor="let card of filteredCards" 
@@ -115,7 +110,7 @@
 
   </section>
 
-  <!-- MODAL DE DETALLE (RF-03 & RF-05) -->
+  <!-- MODAL DE DETALLE -->
   <app-card-detail
     *ngIf="selectedCard"
     [card]="selectedCard"

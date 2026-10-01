@@ -13,8 +13,7 @@ export class YugiohService {
   constructor(private http: HttpClient) {}
 
   /**
-   * RF-01: Busca cartas por nombre parcial o completo.
-   * Utiliza el parámetro `fname` de la API de YGOPRODeck.
+   * Busca cartas por nombre parcial o completo (fname).
    */
   searchCards(term: string): Observable<Card[]> {
     const trimmed = term.trim();
@@ -26,7 +25,7 @@ export class YugiohService {
     return this.http.get<CardApiResponse>(url).pipe(
       map(response => response.data || []),
       catchError((error: HttpErrorResponse) => {
-        // La API de YGOPRODeck responde con 400 cuando no encuentra cartas coincidentes
+        // La API devuelve 400 cuando no hay cartas con esa búsqueda
         if (error.status === 400) {
           return of([]);
         }
@@ -36,21 +35,23 @@ export class YugiohService {
   }
 
   /**
-   * RF-04: Recupera todas las cartas del arquetipo Blue-Eyes.
-   * Utiliza el parámetro `archetype=Blue-Eyes`.
+   * Recupera todas las cartas del arquetipo Blue-Eyes.
    */
   getBlueEyesCards(): Observable<Card[]> {
     const url = `${this.baseUrl}?archetype=Blue-Eyes`;
     return this.http.get<CardApiResponse>(url).pipe(
       map(response => response.data || []),
       catchError((error: HttpErrorResponse) => {
+        if (error.status === 400) {
+          return of([]);
+        }
         return throwError(() => error);
       })
     );
   }
 
   /**
-   * RF-03: Obtiene la información detallada de una carta específica por su ID.
+   * Obtiene el detalle de una carta por ID.
    */
   getCardById(id: number | string): Observable<Card | null> {
     const url = `${this.baseUrl}?id=${id}`;
@@ -63,8 +64,7 @@ export class YugiohService {
   }
 
   /**
-   * RF-05: Extrae la lista única de expansiones (sets) a partir de un arreglo de cartas.
-   * Elimina duplicados utilizando un Set de JavaScript y ordena alfabéticamente.
+   * Extrae la lista única de expansiones ordenadas alfabéticamente.
    */
   extractUniqueSets(cards: Card[]): string[] {
     const setNames = new Set<string>();
@@ -81,7 +81,7 @@ export class YugiohService {
   }
 
   /**
-   * RF-06: Filtra las cartas que pertenecen a una expansión específica.
+   * Filtra cartas por el nombre de la expansión seleccionada.
    */
   filterCardsBySet(cards: Card[], setName: string): Card[] {
     if (!setName || setName === 'ALL') {

@@ -1,7 +1,7 @@
 .modal-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(4, 7, 13, 0.82);
+  background: rgba(3, 3, 5, 0.85);
   backdrop-filter: blur(6px);
   display: flex;
   justify-content: center;
@@ -18,14 +18,14 @@
 }
 
 .detail-container {
-  background: #111827;
-  border: 1px solid rgba(96, 165, 250, 0.25);
+  background: #111218;
+  border: 1px solid rgba(245, 158, 11, 0.25);
   border-radius: 16px;
   width: 100%;
   max-width: 900px;
   max-height: 90vh;
   overflow-y: auto;
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8);
   display: flex;
   flex-direction: column;
 }
@@ -36,7 +36,7 @@
   align-items: center;
   padding: 20px 24px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-  background: rgba(17, 24, 39, 0.95);
+  background: rgba(17, 18, 24, 0.98);
   position: sticky;
   top: 0;
   z-index: 10;
@@ -51,15 +51,15 @@
 
 .card-name {
   margin: 0;
-  font-size: 1.4rem;
+  font-size: 1.35rem;
   font-weight: 800;
-  color: #f8fafc;
+  color: #ffffff;
 }
 
 .close-btn {
   background: rgba(255, 255, 255, 0.06);
   border: none;
-  color: #94a3b8;
+  color: #9ca3af;
   width: 36px;
   height: 36px;
   border-radius: 50%;
@@ -82,13 +82,13 @@
   text-transform: uppercase;
   padding: 4px 10px;
   border-radius: 999px;
-  background: #374151;
-  color: #f3f4f6;
+  background: #262626;
+  color: #ffffff;
 }
 
 .badge-monster { background: linear-gradient(135deg, #b45309, #d97706); color: #fff; }
 .badge-spell { background: linear-gradient(135deg, #047857, #10b981); color: #fff; }
-.badge-trap { background: linear-gradient(135deg, #be185d, #ec4899); color: #fff; }
+.badge-trap { background: linear-gradient(135deg, #9d174d, #db2777); color: #fff; }
 
 .detail-content {
   padding: 24px;
@@ -121,8 +121,8 @@
   max-width: 280px;
   border-radius: 10px;
   overflow: hidden;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.7);
+  border: 1px solid rgba(245, 158, 11, 0.2);
 }
 
 .full-card-image {
@@ -132,7 +132,7 @@
 
 .card-id-tag {
   font-size: 0.75rem;
-  color: #64748b;
+  color: #6b7280;
   font-family: monospace;
 }
 
@@ -161,7 +161,7 @@
 .prop-label {
   font-size: 0.68rem;
   text-transform: uppercase;
-  color: #94a3b8;
+  color: #9ca3af;
   font-weight: 700;
   letter-spacing: 0.5px;
 }
@@ -169,11 +169,11 @@
 .prop-val {
   font-size: 0.95rem;
   font-weight: 700;
-  color: #f1f5f9;
+  color: #ffffff;
 }
 
 .prop-val.highlight {
-  color: #60a5fa;
+  color: #fbbf24;
 }
 
 .atk-card {
@@ -195,7 +195,7 @@
 }
 
 .desc-box {
-  background: rgba(15, 23, 42, 0.7);
+  background: rgba(0, 0, 0, 0.4);
   border: 1px solid rgba(255, 255, 255, 0.06);
   border-radius: 10px;
   padding: 16px;
@@ -204,14 +204,14 @@
 .desc-title {
   margin: 0 0 8px 0;
   font-size: 0.85rem;
-  color: #93c5fd;
+  color: #fbbf24;
   text-transform: uppercase;
   letter-spacing: 0.5px;
 }
 
 .desc-text {
   margin: 0;
-  color: #cbd5e1;
+  color: #d1d5db;
   font-size: 0.92rem;
   line-height: 1.6;
   white-space: pre-line;
@@ -225,7 +225,7 @@
 
 .prices-title {
   font-size: 0.75rem;
-  color: #64748b;
+  color: #6b7280;
   text-transform: uppercase;
   font-weight: 700;
 }
@@ -241,11 +241,11 @@
   padding: 4px 10px;
   border-radius: 6px;
   font-size: 0.78rem;
-  color: #cbd5e1;
+  color: #d1d5db;
 }
 
 .price-tag strong {
-  color: #34d399;
+  color: #fbbf24;
 }
 
 .expansions-section {
@@ -257,7 +257,7 @@
   margin: 0 0 16px 0;
   font-size: 1.15rem;
   font-weight: 700;
-  color: #f8fafc;
+  color: #ffffff;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -265,18 +265,18 @@
 
 .counter-badge {
   font-size: 0.75rem;
-  background: rgba(59, 130, 246, 0.15);
-  color: #93c5fd;
+  background: rgba(245, 158, 11, 0.12);
+  color: #fbbf24;
   padding: 3px 10px;
   border-radius: 999px;
-  border: 1px solid rgba(59, 130, 246, 0.3);
+  border: 1px solid rgba(245, 158, 11, 0.25);
 }
 
 .table-container {
   overflow-x: auto;
   border-radius: 8px;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  background: rgba(15, 23, 42, 0.6);
+  border: 1px solid rgba(245, 158, 11, 0.15);
+  background: rgba(0, 0, 0, 0.4);
 }
 
 .sets-table {
@@ -287,9 +287,9 @@
 }
 
 .sets-table th {
-  background: rgba(30, 41, 59, 0.8);
+  background: rgba(23, 24, 34, 0.9);
   padding: 12px 16px;
-  color: #94a3b8;
+  color: #9ca3af;
   font-weight: 700;
   text-transform: uppercase;
   font-size: 0.7rem;
@@ -299,7 +299,7 @@
 .sets-table td {
   padding: 12px 16px;
   border-top: 1px solid rgba(255, 255, 255, 0.05);
-  color: #e2e8f0;
+  color: #e5e7eb;
 }
 
 .sets-table tr:hover {
@@ -308,20 +308,20 @@
 
 .set-name-cell {
   font-weight: 600;
-  color: #f1f5f9;
+  color: #ffffff;
 }
 
 .set-code-cell code {
   background: rgba(255, 255, 255, 0.08);
   padding: 2px 6px;
   border-radius: 4px;
-  color: #93c5fd;
+  color: #fbbf24;
   font-size: 0.8rem;
 }
 
 .rarity-badge {
   background: rgba(245, 158, 11, 0.12);
-  color: #fbbf24;
+  color: #fef08a;
   padding: 2px 8px;
   border-radius: 4px;
   font-size: 0.75rem;
@@ -331,12 +331,6 @@
 .price-cell {
   font-weight: 700;
   color: #34d399;
-}
-
-.expansions-empty {
-  color: #64748b;
-  font-style: italic;
-  font-size: 0.85rem;
 }
 
 /* ESTADOS */
@@ -356,21 +350,21 @@
 
 .state-title {
   margin: 0;
-  color: #f8fafc;
+  color: #ffffff;
   font-size: 1.1rem;
 }
 
 .state-text {
   margin: 0;
-  color: #94a3b8;
+  color: #9ca3af;
   font-size: 0.9rem;
 }
 
 .spinner {
   width: 40px;
   height: 40px;
-  border: 3px solid rgba(59, 130, 246, 0.2);
-  border-top-color: #3b82f6;
+  border: 3px solid rgba(245, 158, 11, 0.15);
+  border-top-color: #fbbf24;
   border-radius: 50%;
   animation: spin 0.8s linear infinite;
 }
@@ -378,11 +372,11 @@
 .retry-btn {
   margin-top: 10px;
   padding: 8px 18px;
-  background: #2563eb;
-  color: #ffffff;
+  background: #f59e0b;
+  color: #000000;
   border: none;
   border-radius: 6px;
-  font-weight: 600;
+  font-weight: 700;
   cursor: pointer;
 }
 
